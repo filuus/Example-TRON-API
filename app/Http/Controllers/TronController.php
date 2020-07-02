@@ -38,8 +38,11 @@ class TronController extends Controller
         return response()->json(['address' => $account['address']]);
     }
 
-    public function getBallanceOfWallet()
+    public function getBalanceOfWallet($address)
     {
-        
+        $tron = SELF::getTron();
+        $tron->setAddress($address);
+        $balance = $tron->getBalance(null, true);
+        return response()->json(['balance' => $balance]);
     }
 }

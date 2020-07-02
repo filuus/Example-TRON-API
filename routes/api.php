@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/wallet', 'TronController@createWallet');
+Route::get('/balance/{address}', 'TronController@getBalanceOfWallet');
