@@ -27,6 +27,21 @@ class TronController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *      path="/wallet",
+     *      operationId="createWallet",
+     *      summary="Create new wallet",
+     *      description="Create new wallet",
+     *      tags={"Wallets"},
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *       )
+     *
+     *     )
+     */
+
     public function createWallet()
     {
         $tron = SELF::getTron();
@@ -35,14 +50,36 @@ class TronController extends Controller
         $wallet->address = $account['address'];
         $wallet->secret = $account['privateKey'];
         $wallet->save();
-        return response()->json(['address' => $account['address']]);
+        return response()->json(['address' => $account['address']], 201);
     }
+
+    /**
+     * @OA\Get(
+     *      path="/balance/{address}",
+     *      operationId="getWalletBalance",
+     *      summary="Get balance of wallet",
+     *      description="Get the balance of wallet",
+     *      tags={"Wallets"},
+     *     @OA\Parameter(
+     *         name="address",
+     *         in="path",
+     *         description="The address of wallet",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *       )
+     *
+     *     )
+     */
 
     public function getBalanceOfWallet($address)
     {
         $tron = SELF::getTron();
         $tron->setAddress($address);
         $balance = $tron->getBalance(null, true);
-        return response()->json(['balance' => $balance]);
+        return response()->json(['balance' => $balance], 200);
     }
 }
