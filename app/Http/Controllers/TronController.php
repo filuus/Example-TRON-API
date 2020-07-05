@@ -21,7 +21,7 @@ class TronController extends Controller
 
         try {
             $tron = new Tron($fullNode, $solidityNode, $eventServer);
-            return $tron;
+            return $tron;            
         } catch (TronException $e) {
             exit($e->getMessage());
         }
