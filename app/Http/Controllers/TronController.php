@@ -75,7 +75,7 @@ class TronController extends Controller
      *     )
      */
 
-    public function getBalanceOfWallet($address)
+    public function getBalanceOfWallet(string $address)
     {
         $tron = SELF::getTron();
         $tron->setAddress($address);
